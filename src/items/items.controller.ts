@@ -32,9 +32,9 @@ export class ItemsController {
   }
 
   @Put(':id')
-  put(
+  update(
     @Param() param,
-    @Body() createItemDto: CreateItemDto,
+    @Body() updateItemDto: CreateItemDto,
   ): {
     message: string;
     status: number;
@@ -44,7 +44,7 @@ export class ItemsController {
       message: `ID of ${param.id} is updated`,
       status: 201,
       item: {
-        ...createItemDto,
+        ...updateItemDto,
       },
     };
   }
