@@ -28,6 +28,11 @@
 
 - a shared module that can be a reusable services, tests and controller.
 
+##### configurations
+
+- this folder is added from `gitignore`
+- environment configurations, secrets and etc. `example: mongoodb connection`
+
 ## Installation
 
 ```bash
