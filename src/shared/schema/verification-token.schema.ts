@@ -9,6 +9,10 @@ export const VerificationTokenSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  token: {
+    type: String,
+    required: true,
+  },
   expirationDate: {
     type: Number,
   },

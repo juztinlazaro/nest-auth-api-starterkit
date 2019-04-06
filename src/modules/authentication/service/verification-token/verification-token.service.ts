@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { MailerService } from '@nest-modules/mailer';
 import { Model } from 'mongoose';
 
 import { generateToken } from '@app/common/methods/encryptions.method';
@@ -12,7 +13,20 @@ export class VerificationTokenService {
   constructor(
     @InjectModel('VerificationToken')
     private readonly verifyTokenModel: Model<IVerificationTokenModel>,
+    private readonly mailerService: MailerService,
   ) {}
+
+  sendVerificationEmail(payload): void {
+    this.mailerService.sendMail({
+      to: payload.email,
+      from: 'playground_nest@playground.com',
+      subject: 'Verification account',
+      text: 'Gooday',
+      html: `<b><a href="http://localhost:3000/verification-token/${
+        payload.token
+      }" target="_blank">verify</a></b>`,
+    });
+  }
 
   async createVerificationToken(data: VerificationTokenDto): Promise<void> {
     const createVerificationToken = new this.verifyTokenModel({
@@ -24,6 +38,7 @@ export class VerificationTokenService {
     return await createVerificationToken
       .save()
       .then(res => {
+        this.sendVerificationEmail(res);
         console.log('createVerificationToken success', res);
       })
       .catch(error => {
