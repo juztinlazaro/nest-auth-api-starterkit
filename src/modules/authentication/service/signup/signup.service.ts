@@ -44,6 +44,7 @@ export class SignUpService {
           data: {
             email: res.email,
             username: res.username,
+            _id: res._id,
           },
         };
       })

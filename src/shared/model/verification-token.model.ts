@@ -1,6 +1,5 @@
 export interface IVerificationTokenModel {
-  verificationId: string;
-  auth_id: string;
+  authId: string;
   email: string;
   expirationDate?: number;
 }

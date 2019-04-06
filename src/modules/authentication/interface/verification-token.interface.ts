@@ -1,9 +1,8 @@
-export interface ISignUpResponse {
+export interface IVerificationTokenResponse {
   statusCode: number;
   message: string;
   data?: {
-    _id?: string;
     email?: string;
-    username?: string;
+    token?: string;
   };
 }

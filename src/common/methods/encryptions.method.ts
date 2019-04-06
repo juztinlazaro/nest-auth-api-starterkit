@@ -8,6 +8,10 @@ export const bycrpEncryp = item => {
   return hash;
 };
 
+export const generateToken = data => {
+  return jwt.sign(data, config.secret, {});
+};
+
 export const decodeToken = token => {
   return jwt.verify(token, config.secret);
 };

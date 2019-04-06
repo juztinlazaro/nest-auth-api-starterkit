@@ -1,11 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export const VerificationTokenSchema = new mongoose.Schema({
-  verificationId: {
-    type: String,
-    required: true,
-  },
-  auth_id: {
+  authId: {
     type: String,
     required: true,
   },

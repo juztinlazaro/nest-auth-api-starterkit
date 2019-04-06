@@ -1,11 +1,11 @@
 import * as mongoose from 'mongoose';
 
 export const UserSchema = new mongoose.Schema({
-  user_id: {
+  userId: {
     type: String,
     required: true,
   },
-  auth_id: {
+  authId: {
     type: String,
     required: true,
   },
