@@ -22,7 +22,7 @@ export class VerificationTokenService {
       from: 'playground_nest@playground.com',
       subject: 'Verification account',
       text: 'Gooday',
-      html: `<b><a href="http://localhost:3000/verification-token/${
+      html: `<b><a href="http://localhost:3000/account-verification/${
         payload.token
       }" target="_blank">verify</a></b>`,
     });
