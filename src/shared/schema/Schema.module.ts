@@ -28,4 +28,4 @@ import { VerificationTokenSchema } from './verification-token.schema';
     ]),
   ],
 })
-export class ModelModule {}
+export class SchemaModule {}
