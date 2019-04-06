@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const VerificationTokenSchema = new mongoose.schema({
+export const VerificationTokenSchema = new mongoose.Schema({
   verificationId: {
     type: String,
     required: true,

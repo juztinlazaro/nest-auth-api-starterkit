@@ -1,17 +1,15 @@
 import * as mongoose from 'mongoose';
 
-export const AuthenticationSchema = new mongoose.schema({
-  auth_id: {
-    type: String,
-    required: true,
-  },
+export const AuthenticationSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -19,5 +17,6 @@ export const AuthenticationSchema = new mongoose.schema({
   },
   isVerified: {
     type: Boolean,
+    default: false,
   },
 });

@@ -7,8 +7,12 @@ import { AppService } from './app.service';
 import config from '../../configurations/keys';
 import { ItemSchema } from '@app/shared/schema/item.schema';
 
+import { AuthenticationSchema } from '../shared/schema/authentication.schema';
+
 import { ItemsController } from '@app/modules/items/controllers/items.controller';
 import { ItemsService } from '@app/modules/items/services/items.service';
+import { SignUpController } from '@app/modules/authentication/controller/signup/signup.controller';
+import { SignUpService } from '@app/modules/authentication/service/signup/signup.service';
 
 @Module({
   imports: [
@@ -18,9 +22,13 @@ import { ItemsService } from '@app/modules/items/services/items.service';
         name: 'Item',
         schema: ItemSchema,
       },
+      {
+        name: 'Authentication',
+        schema: AuthenticationSchema,
+      },
     ]),
   ],
-  controllers: [AppController, ItemsController],
-  providers: [AppService, ItemsService],
+  controllers: [AppController, ItemsController, SignUpController],
+  providers: [AppService, ItemsService, SignUpService],
 })
 export class AppModule {}

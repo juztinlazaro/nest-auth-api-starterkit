@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 import { IItemResponse } from '../interfaces/item.interface';
 import { IItemModel } from '@app/shared/model/item.model';
