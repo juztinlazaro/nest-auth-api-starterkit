@@ -7,8 +7,8 @@ import { AppService } from './app.service';
 import config from '../../configurations/keys';
 import { ItemSchema } from '@app/shared/schema/item.schema';
 
-import { ItemsController } from '@app/modules/items/items.controller';
-import { ItemsService } from '@app/modules/items//items.service';
+import { ItemsController } from '@app/modules/items/controllers/items.controller';
+import { ItemsService } from '@app/modules/items/services/items.service';
 
 @Module({
   imports: [

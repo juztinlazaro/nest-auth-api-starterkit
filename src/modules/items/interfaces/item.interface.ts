@@ -1,6 +1,5 @@
-export interface Item {
-  id?: string;
-  name: string;
-  description?: string;
-  qty: number;
+export interface IItemResponse {
+  statusCode?: number;
+  message: string;
+  data?: object | string;
 }
