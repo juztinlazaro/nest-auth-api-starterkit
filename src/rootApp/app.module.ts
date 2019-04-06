@@ -6,7 +6,7 @@ import { ItemModule } from '@app/modules/items/items.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import config from '../configurations/keys';
+import config from '../../configurations/keys';
 
 @Module({
   imports: [MongooseModule.forRoot(config.mongoURI), ItemModule],
