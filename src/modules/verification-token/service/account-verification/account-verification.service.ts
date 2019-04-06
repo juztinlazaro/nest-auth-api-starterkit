@@ -34,10 +34,17 @@ export class AccountVerificationService {
         },
         { isVerified: true },
       )
-      .then(() => this.deleteVerificationToken(authId));
+      .then(res => {
+        console.log('account verified****', res);
+        this.deleteVerificationToken(authId);
+      })
+      .catch(error => console.log('account verified****error***', error));
   }
 
   deleteVerificationToken(authId: string): Promise<void> {
-    return this.verificationTokenModel.deleteOne({ authId });
+    return this.verificationTokenModel
+      .deleteOne({ authId })
+      .then(res => console.log('deleteVerificationToken', res))
+      .catch(error => console.log('deleteVerificationToken errorrr'));
   }
 }

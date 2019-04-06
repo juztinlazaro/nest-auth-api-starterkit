@@ -14,7 +14,7 @@ import { ItemsService } from '@app/modules/items/services/items.service';
 import { SchemaModule } from '@root/src/shared/schema/Schema.module';
 import { SignUpController } from '@app/modules/authentication/controller/signup/signup.controller';
 import { SignUpService } from '@app/modules/authentication/service/signup/signup.service';
-import { VerificationTokenService } from '@app/modules/authentication/service/verification-token/verification-token.service';
+
 @Module({
   imports: [
     MongooseModule.forRoot(config.database),
@@ -46,7 +46,6 @@ import { VerificationTokenService } from '@app/modules/authentication/service/ve
     AccountVerificationService,
     ItemsService,
     SignUpService,
-    VerificationTokenService,
   ],
 })
 export class AppModule {}
