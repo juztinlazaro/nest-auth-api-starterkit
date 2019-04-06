@@ -12,7 +12,7 @@ import { ItemsService } from '@app/modules/items/services/items.service';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(config.mongoURI),
+    MongooseModule.forRoot(config.database),
     MongooseModule.forFeature([
       {
         name: 'Item',
