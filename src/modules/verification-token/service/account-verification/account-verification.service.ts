@@ -20,8 +20,7 @@ export class AccountVerificationService {
         token,
       })
       .then(res => {
-        console.log('res***', res);
-        this.verifyAccount(res.authId);
+        return this.verifyAccount(res.authId);
       })
       .catch(error => console.log('error****', error));
   }
@@ -35,8 +34,13 @@ export class AccountVerificationService {
         { isVerified: true },
       )
       .then(res => {
-        console.log('account verified****', res);
         this.deleteVerificationToken(authId);
+
+        return {
+          statusCode: 200,
+          message: 'account verified',
+          data: res,
+        };
       })
       .catch(error => console.log('account verified****error***', error));
   }
