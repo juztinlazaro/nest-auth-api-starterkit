@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import config from '../../configurations/keys';
-import { AuthenticationSchema } from '../shared/schema/authentication.schema';
-import { ItemSchema } from '@app/shared/schema/item.schema';
-import { VerificationTokenSchema } from '@app/shared/schema/verification-token.schema';
 
 import { ItemsController } from '@app/modules/items/controllers/items.controller';
 import { ItemsService } from '@app/modules/items/services/items.service';
+import { ModelModule } from '@app/shared/schema/Model.module';
 import { SignUpController } from '@app/modules/authentication/controller/signup/signup.controller';
 import { SignUpService } from '@app/modules/authentication/service/signup/signup.service';
 import { VerificationTokenService } from '@app/modules/authentication/service/verification-token/verification-token.service';
@@ -18,20 +17,22 @@ import { VerificationTokenService } from '@app/modules/authentication/service/ve
 @Module({
   imports: [
     MongooseModule.forRoot(config.database),
-    MongooseModule.forFeature([
-      {
-        name: 'Authentication',
-        schema: AuthenticationSchema,
-      },
-      {
-        name: 'Item',
-        schema: ItemSchema,
-      },
-      {
-        name: 'VerificationToken',
-        schema: VerificationTokenSchema,
-      },
-    ]),
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: config.transport,
+        defaults: {
+          from: '"nest-modules" <modules@nestjs.com>',
+        },
+        template: {
+          dir: __dirname + '/src/common/email-template',
+          adapter: new HandlebarsAdapter(), // or new PugAdapter()
+          options: {
+            strict: true,
+          },
+        },
+      }),
+    }),
+    ModelModule,
   ],
   controllers: [AppController, ItemsController, SignUpController],
   providers: [
