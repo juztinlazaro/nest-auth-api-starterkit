@@ -2,8 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+import { decodeToken } from '@app/common/methods/encryptions.method';
+
 import { IVerificationTokenModel } from '@app/shared/model/verification-token.model';
-import { IAuthenticationModel } from '@root/src/shared/model/authentication.model';
+import { IAuthenticationModel } from '@app/shared/model/authentication.model';
+import { IUserModel } from '@root/src/shared/model/user.model';
+import { CreateUserProfileDto } from '../../dto/createUserProfile.dto';
 
 @Injectable()
 export class AccountVerificationService {
@@ -12,29 +16,41 @@ export class AccountVerificationService {
     private readonly verificationTokenModel: Model<IVerificationTokenModel>,
     @InjectModel('Authentication')
     private readonly authModel: Model<IAuthenticationModel>,
+    @InjectModel('User')
+    private readonly userModel: Model<IUserModel>,
   ) {}
 
   checkVerificationToken(token: string): Promise<void> {
+    const userInfo = decodeToken(token);
     return this.verificationTokenModel
       .findOne({
         token,
       })
       .then(res => {
-        return this.verifyAccount(res.authId);
+        return this.verifyAccount(userInfo);
       })
       .catch(error => console.log('error****', error));
   }
 
-  verifyAccount(authId: string): Promise<void> {
+  verifyAccount(userInfo: {
+    username: string;
+    email: string;
+    authId: string;
+  }): Promise<void> {
+    console.log('userInfo***', userInfo);
     return this.authModel
       .updateOne(
         {
-          _id: authId,
+          _id: userInfo.authId,
         },
         { isVerified: true },
       )
       .then(res => {
-        this.deleteVerificationToken(authId);
+        this.createUserProfile({
+          email: userInfo.email,
+          username: userInfo.username,
+          authId: userInfo.authId,
+        });
 
         return {
           statusCode: 200,
@@ -43,6 +59,19 @@ export class AccountVerificationService {
         };
       })
       .catch(error => console.log('account verified****error***', error));
+  }
+
+  async createUserProfile(userInfo: CreateUserProfileDto): Promise<void> {
+    const newUser = new this.userModel(userInfo);
+    return await newUser
+      .save()
+      .then(res => {
+        console.log('createUserProfile success', res);
+        this.deleteVerificationToken(res.authId);
+      })
+      .catch(error => {
+        console.log('createUserProfile error***', error);
+      });
   }
 
   deleteVerificationToken(authId: string): Promise<void> {

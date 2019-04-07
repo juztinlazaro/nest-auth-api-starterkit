@@ -50,6 +50,7 @@ export class SignUpService {
       .then(res => {
         this.createVerificationToken({
           email: res.email,
+          username: res.username,
           authId: res._id,
         });
 
@@ -76,6 +77,7 @@ export class SignUpService {
       token: generateToken(data),
       email: data.email,
       authId: data.authId,
+      username: data.username,
     });
 
     return await createVerificationToken

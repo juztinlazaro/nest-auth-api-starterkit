@@ -1,10 +1,6 @@
 import * as mongoose from 'mongoose';
 
 export const UserSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
   authId: {
     type: String,
     required: true,
@@ -19,14 +15,18 @@ export const UserSchema = new mongoose.Schema({
   },
   first_name: {
     type: String,
+    default: '',
   },
   last_name: {
     type: String,
+    default: '',
   },
   avatar: {
     type: Object,
+    default: {},
   },
   mobile_number: {
     type: Number,
+    default: 0,
   },
 });
