@@ -24,6 +24,7 @@ export class SignUpService {
     private readonly mailerService: MailerService,
   ) {}
 
+  // deprecated
   async checkUserExist(username: string, email: string): Promise<boolean> {
     return await this.authModel
       .findOne({
