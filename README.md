@@ -1,5 +1,15 @@
 # NEST NODEJS STARTER KIT
 
+- before im starting an API or a services one of my best practice is to create a `UML (Unified Modeling language)`
+- after UML flow chat
+- (will create a more documentation about this)
+
+##### Please check the UML version 1.1:
+![image](https://i.ibb.co/61DryXz/UML-accounts-v1-1.png)
+
+##### Please check the flowchart  1.1:
+![image](https://i.ibb.co/GcMLq9Z/flowchart-accounts-v1.png)
+
 ## Folder structure
 
 ##### rootApp
